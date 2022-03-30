@@ -16,10 +16,10 @@ final class LibraryCreator
         $this->repository = $repository;
     }
 
-    public function __invoke(LibraryValue $value): void
+    public function __invoke(LibraryValue $value): ?Library
     {
         $library = new Library($value);
         
-        $this->repository->save($library);
+        return $this->repository->save($library);
     }
 }

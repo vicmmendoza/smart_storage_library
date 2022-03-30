@@ -17,12 +17,15 @@ final class FileLibraryRepository implements LibraryRepository
         $this->file_path = __DIR__ . $_SERVER['APP_DIR_LIBRARY'];
     }
 
-    public function save(Library $library): void
+    public function save(Library $library): ?Library
     {
         if ($this->searchValue($library->value()->value()) == false )
         {
             file_put_contents($this->file_path, $this->saveValue($library->value()->value()));
+            return $library;
         }
+
+        return null;
     }
 
     public function search(LibraryValue $value): ?Library

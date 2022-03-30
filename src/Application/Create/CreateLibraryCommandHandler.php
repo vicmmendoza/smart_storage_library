@@ -2,9 +2,10 @@
 
 namespace Vic\Application\Create;
 
+use Vic\Domain\Library;
 use Vic\Domain\LibraryValue;
-use Vic\Application\Create\LibraryCreator;
 use Vic\Application\LibraryCommand;
+use Vic\Application\Create\LibraryCreator;
 
 final class CreateLibraryCommandHandler
 {
@@ -16,10 +17,10 @@ final class CreateLibraryCommandHandler
         $this->creator = $creator;
     }
 
-    public function __invoke(LibraryCommand $command): void
+    public function __invoke(LibraryCommand $command): ?Library
     {
         $value             = new LibraryValue($command->value());
         
-        $this->creator->__invoke($value);
+        return $this->creator->__invoke($value);
     }
 }

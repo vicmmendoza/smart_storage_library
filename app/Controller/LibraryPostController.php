@@ -20,15 +20,16 @@ class LibraryPostController
     public function __invoke(Request $request): Response
     {
 
-        try {
-            $this->command->__invoke(new LibraryCommand(
-                $request->get('value')??'',
-            ));
+        $library = $this->command->__invoke(new LibraryCommand(
+                            $request->get('value')??'',
+                    ));
+        
+        if (is_null($library)) {
+            return new Response('Value found', Response::HTTP_FOUND);    
+        }            
 
-            return new Response('', Response::HTTP_CREATED);    
-        } catch (\Exception $e) {
-            return new Response($e, Response::HTTP_BAD_REQUEST);    
-        }
+        return new Response($library->value()->value(), Response::HTTP_CREATED);    
+        
     }
 
 }

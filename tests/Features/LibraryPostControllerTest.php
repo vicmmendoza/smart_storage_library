@@ -17,12 +17,29 @@ final class LibraryPostControllerTest extends WebTestCase
         $this->assertEquals(Response::HTTP_CREATED, $client->getResponse()->getStatusCode());
     }
 
-    private function sendRequest(KernelBrowser $client)
+    public function testvaluefound()
+    {
+        $client = static::createClient();
+
+        $value = strval(rand(1,1000000));
+
+        $this->sendRequest($client, $value);
+
+        $this->sendRequest($client, $value);
+
+        $this->assertEquals(Response::HTTP_FOUND, $client->getResponse()->getStatusCode());
+    }
+
+    private function sendRequest(KernelBrowser $client, string $value = null)
     {
         $client->request(
             'POST',
             '/api/library',
-            ["value"          =>  strval(rand(1,1000000))]
+            ["value"          =>  $value??strval(rand(1,1000000))]
         );
     }
+
+
+    
+
 }
