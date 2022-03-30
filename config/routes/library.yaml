@@ -1,0 +1,9 @@
+library_post:
+  path: api/library
+  controller: App\Controller\LibraryPostController
+  methods: POST
+
+library_get:
+  path: api/library/{value}
+  controller: App\Controller\LibraryGetController
+  methods: GET
