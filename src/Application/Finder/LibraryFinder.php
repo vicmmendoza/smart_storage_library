@@ -16,14 +16,9 @@ final class LibraryFinder
         $this->repository = $repository;
     }
 
-    public function __invoke(LibraryValue $value): Library
+    public function __invoke(LibraryValue $value): ?Library
     {
         $library = $this->repository->search($value);
-
-        if (null === $library)
-        {
-            throw new \Exception("Device does not exist.");
-        }
 
         return $library;
     }

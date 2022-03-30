@@ -27,7 +27,7 @@ final class LibraryGetControllerTest extends WebTestCase
 
         $this->sendRequestSearch($client, '[[[[[[[');
 
-        $this->assertEquals(Response::HTTP_BAD_REQUEST, $client->getResponse()->getStatusCode());
+        $this->assertEquals(Response::HTTP_NOT_FOUND, $client->getResponse()->getStatusCode());
     }
 
     private function sendRequestCreate(KernelBrowser $client)

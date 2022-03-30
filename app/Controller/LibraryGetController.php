@@ -20,14 +20,13 @@ class LibraryGetController
     public function __invoke(string $value, Request $request): Response
     {
 
-        try {
+        $library = $this->command->__invoke(new LibraryCommand($value));
 
-            $library = $this->command->__invoke(new LibraryCommand($value));
-
-            return new Response($library->value()->value(), Response::HTTP_OK);    
-        } catch (\Exception $e) {
-            return new Response($e, Response::HTTP_BAD_REQUEST);    
+        if (is_null($library))
+        {
+            return new Response('Value no found.', Response::HTTP_NOT_FOUND);
         }
+        return new Response($library->value()->value(), Response::HTTP_OK);    
     }
 
 }
